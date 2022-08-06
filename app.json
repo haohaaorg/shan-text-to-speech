@@ -1,0 +1,7 @@
+{
+  "name": "Shan TTS",
+  "description": "Shan text to speech app using espeak-ng and text2wav (beta)",
+  "repository": "https://github.com/haohaaorg/shan-text-to-speech",
+  "logo": "https://avatars.githubusercontent.com/u/58289012?s=400&u=8defb06c34ad8fe82fbeed47cbc871dfe19825fa&v=4",
+  "keywords": ["shan", "tts", "text-to-speech", "espeak-ng","text2wav"]
+}

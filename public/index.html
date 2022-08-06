@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shan TTS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/quartz/bootstrap.min.css">
+    <style>
+        .tts-form audio {
+            display: none;
+        }
+
+        .tts-form {
+            margin: 100px auto;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.403);
+        }
+        @media(max-width:500px){
+            .tts-form{
+                margin:100px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tts-form p-3 rounded-1 shadow">
+        <h3>Shan TTS - Web API (beta)</h3>
+        <p><small>Espeak-ng Synthesizer</small></p>
+        <form>
+            <input type="text" class="tts-text form-control my-2">
+            <button class="btn btn-primary my-2">Submit</button>
+        </form>
+        <br />
+        <audio controls autoplay></audio>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const ttsForm = document.querySelector('.tts-form form');
+            ttsForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const audioTag = document.querySelector('audio');
+                audioTag.style.display = 'none';
+
+                const text = document.querySelector('input.tts-text').value;
+                if (!text) return;
+
+                try {
+                    const res = await fetch('/api?text=' + text);
+                    const { data } = await res.json();
+                    if (!data) return;
+                    audioTag.style.display = 'block';
+                    audioTag.src = `data:audio/wav;base64,${data}`;
+                } catch (err) {
+                    console.log(err)
+                }
+
+            })
+        })
+    </script>
+</body>
+
+</html>
